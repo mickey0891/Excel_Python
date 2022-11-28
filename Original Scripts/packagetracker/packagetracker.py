@@ -76,7 +76,8 @@ def update_database():
             ret = ret.json()  # parse the JSON string into a dictionary
             logs.append(f"INFO: {row['package_name']} downloaded successfully")
         else:
-            logs.append(f"ERROR: Could not download data for {row['package_name']}")
+            logs.append(
+                f"ERROR: Could not download data for {row['package_name']}")
             continue
 
         # Instantiate a DataFrame by extracting data from the REST API response
@@ -89,7 +90,8 @@ def update_database():
         df_releases["uploaded_at"] = pd.to_datetime(df_releases["uploaded_at"])
         df_releases = df_releases.sort_values("uploaded_at")
         database.store_versions(df_releases)
-        logs.append(f"INFO: {row['package_name']} stored to database successfully")
+        logs.append(
+            f"INFO: {row['package_name']} stored to database successfully")
 
     # Write out the last updated timestamp and logs
     sheet_db["updated_at"].value = (f"Last updated: "
